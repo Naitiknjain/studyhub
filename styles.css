@@ -1,0 +1,448 @@
+/* ============================================
+   GLOBAL STYLES — applies to whole site
+   ============================================ */
+
+/* Import a nice font from Google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0f0f1a;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: #13131f;
+  border-bottom: 1px solid #2a2a3d;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #7c6ff7;
+  letter-spacing: 1px;
+}
+
+.nav-links a {
+  color: #aaa;
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #7c6ff7;
+}
+
+/* ============================================
+   HERO SECTION (Landing Page)
+   ============================================ */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 20px;
+
+  /* Fade + slide animation on load */
+  animation: fadeSlideUp 0.9s ease both;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.hero h1 span {
+  color: #7c6ff7;
+}
+
+.hero p {
+  margin-top: 20px;
+  font-size: 1.15rem;
+  color: #888;
+  max-width: 500px;
+}
+
+.btn-primary {
+  margin-top: 40px;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, #7c6ff7, #5a4fcf);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(124, 111, 247, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(124, 111, 247, 0.6);
+}
+
+/* ============================================
+   SUBJECTS SECTION
+   ============================================ */
+
+.subjects-section {
+  padding: 80px 60px;
+  text-align: center;
+}
+
+.subjects-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.subjects-section p {
+  color: #888;
+  margin-bottom: 50px;
+}
+
+.subjects-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.subject-card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a3d;
+  border-radius: 16px;
+  padding: 40px 30px;
+  width: 260px;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s;
+  animation: fadeSlideUp 0.8s ease both;
+}
+
+.subject-card:hover {
+  transform: translateY(-6px);
+  border-color: #7c6ff7;
+}
+
+.subject-card .icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.subject-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.subject-card p {
+  font-size: 0.88rem;
+  color: #777;
+  margin-bottom: 24px;
+}
+
+.btn-secondary {
+  padding: 10px 28px;
+  background: transparent;
+  color: #7c6ff7;
+  border: 2px solid #7c6ff7;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s, color 0.3s;
+}
+
+.btn-secondary:hover {
+  background: #7c6ff7;
+  color: white;
+}
+
+/* ============================================
+   PAGE HEADER (used in subject.html)
+   ============================================ */
+
+.page-header {
+  text-align: center;
+  padding: 60px 20px 30px;
+  animation: fadeSlideUp 0.7s ease both;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.page-header p {
+  color: #888;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* ============================================
+   VIDEOS GRID (subject.html)
+   ============================================ */
+
+.videos-section {
+  padding: 40px 60px 80px;
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.video-card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a3d;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+  animation: fadeSlideUp 0.8s ease both;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  border-color: #7c6ff7;
+}
+
+.video-card iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+  display: block;
+}
+
+.video-info {
+  padding: 20px;
+}
+
+.video-info h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.video-info p {
+  font-size: 0.85rem;
+  color: #777;
+  line-height: 1.5;
+}
+
+/* ============================================
+   FEEDBACK FORM (inside video card)
+   ============================================ */
+
+.feedback-form {
+  padding: 16px 20px 20px;
+  border-top: 1px solid #2a2a3d;
+}
+
+.feedback-form p {
+  font-size: 0.82rem;
+  color: #aaa;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.feedback-form input {
+  width: 100%;
+  padding: 10px 14px;
+  background: #0f0f1a;
+  border: 1px solid #2a2a3d;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 0.88rem;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.feedback-form input:focus {
+  border-color: #7c6ff7;
+}
+
+.btn-submit {
+  padding: 9px 22px;
+  background: #7c6ff7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-submit:hover {
+  background: #5a4fcf;
+}
+
+.feedback-msg {
+  font-size: 0.82rem;
+  margin-top: 8px;
+  color: #4caf50;
+  min-height: 18px;
+}
+
+/* ============================================
+   DOUBTS SECTION
+   ============================================ */
+
+.doubts-section {
+  background: #13131f;
+  border-top: 1px solid #2a2a3d;
+  padding: 80px 60px;
+  text-align: center;
+}
+
+.doubts-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.doubts-section > p {
+  color: #888;
+  margin-bottom: 40px;
+}
+
+.doubt-form {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.doubt-form input,
+.doubt-form textarea {
+  width: 100%;
+  padding: 13px 16px;
+  background: #0f0f1a;
+  border: 1px solid #2a2a3d;
+  border-radius: 10px;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s;
+}
+
+.doubt-form input:focus,
+.doubt-form textarea:focus {
+  border-color: #7c6ff7;
+}
+
+.doubt-form textarea {
+  height: 130px;
+  resize: vertical;
+}
+
+.doubt-msg {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  color: #4caf50;
+  min-height: 20px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #0f0f1a;
+  color: #444;
+  font-size: 0.85rem;
+  border-top: 1px solid #1a1a2e;
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE — works on mobile too!
+   ============================================ */
+
+@media (max-width: 768px) {
+  nav {
+    padding: 16px 24px;
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .subjects-section,
+  .videos-section,
+  .doubts-section {
+    padding: 60px 24px;
+  }
+
+  .videos-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OS Lab — StudyHub</title>
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ⚠️ Supabase CDN — this lets us talk to the database -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+  <!-- ================================
+       NAVBAR
+       ================================ -->
+  <nav>
+    <div class="nav-logo">StudyHub</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#subjects">Subjects</a>
+    </div>
+  </nav>
+
+
+  <!-- ================================
+       PAGE HEADER
+       ================================ -->
+  <div class="page-header">
+    <h1>💻 OS Lab</h1>
+    <p>Watch the videos below and drop your feedback!</p>
+  </div>
+
+
+  <!-- ================================
+       VIDEOS SECTION
+       Videos are loaded here by JavaScript
+       ================================ -->
+  <section class="videos-section">
+
+    <!-- This div will be filled automatically by script.js -->
+    <div class="videos-grid" id="videos-grid">
+
+      <!-- Loading message shown while videos are being fetched -->
+      <div class="loading" id="loading-msg">Loading videos...</div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================
+       DOUBTS SECTION
+       ================================ -->
+  <section class="doubts-section" id="doubts">
+
+    <h2>🙋 Ask a Doubt</h2>
+    <p>Have a question? Fill in the form below and we'll help you out.</p>
+
+    <div class="doubt-form">
+
+      <!-- Name input -->
+      <input
+        type="text"
+        id="doubt-name"
+        placeholder="Your Name"
+      />
+
+      <!-- Email input -->
+      <input
+        type="email"
+        id="doubt-email"
+        placeholder="Your Email"
+      />
+
+      <!-- Message box -->
+      <textarea
+        id="doubt-message"
+        placeholder="Type your doubt here..."
+      ></textarea>
+
+      <!-- Submit button -->
+      <button class="btn-primary" onclick="submitDoubt()">
+        Submit Doubt
+      </button>
+
+      <!-- Success / error message shown after submit -->
+      <p class="doubt-msg" id="doubt-msg"></p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================
+       FOOTER
+       ================================ -->
+  <footer>
+    <p>Made with ❤️ for studying · StudyHub 2025</p>
+  </footer>
+
+
+  <!-- Your JavaScript file — always at the bottom -->
+  <script src="script.js"></script>
+
+</body>
+</html>
