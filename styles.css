@@ -446,3 +446,50 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+/* ============================================
+   VIDEO THUMBNAIL + PLAY BUTTON
+   ============================================ */
+
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  cursor: pointer;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+
+.video-thumbnail:hover img {
+  opacity: 0.6;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(124, 111, 247, 0.9);
+  color: white;
+  font-size: 1.4rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background 0.2s;
+  pointer-events: none;
+}
+
+.video-thumbnail:hover .play-button {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: rgba(124, 111, 247, 1);
+}
