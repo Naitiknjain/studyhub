@@ -56,14 +56,14 @@ async function loadVideos() {
     card.className = 'video-card'
 
     card.innerHTML = `
-      <!-- Video Player -->
-      <iframe
-        src="${video.video_url}"
-        title="${video.title}"
-        allowfullscreen
-        allow="accelerometer; autoplay; clipboard-write;
-               encrypted-media; gyroscope; picture-in-picture"
-      ></iframe>
+      <!-- Video Thumbnail (shows before user clicks) -->
+      <div class="video-thumbnail" onclick="playVideo(this, '${video.video_url}')">
+        <img
+          src="${video.thumbnail_url}"
+          alt="${video.title}"
+        />
+        <div class="play-button">▶</div>
+      </div>
 
       <!-- Video Title and Description -->
       <div class="video-info">
@@ -199,4 +199,35 @@ async function submitDoubt() {
   setTimeout(() => {
     msgEl.textContent = ''
   }, 5000)
+}
+// ============================================
+// Helper — Extract YouTube Video ID from URL
+// ============================================
+
+function getYoutubeId(url) {
+  // Handles URLs like:
+  // https://www.youtube.com/embed/VIDEO_ID
+  const parts = url.split('/')
+  return parts[parts.length - 1]
+}
+
+
+// ============================================
+// Helper — Replace thumbnail with real player
+// ============================================
+
+function playVideo(thumbnailDiv, videoUrl) {
+  // Create the iframe
+  const iframe = document.createElement('iframe')
+  iframe.src = videoUrl + '?autoplay=1'
+  iframe.title = 'Video Player'
+  iframe.allowFullscreen = true
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+  iframe.style.width = '100%'
+  iframe.style.height = '200px'
+  iframe.style.border = 'none'
+  iframe.style.display = 'block'
+
+  // Swap the thumbnail with the iframe
+  thumbnailDiv.replaceWith(iframe)
 }
