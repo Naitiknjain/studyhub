@@ -24,10 +24,7 @@ if (videosGrid) {
 async function loadVideos() {
 
   // Check which subject page we are on
-  // CURRENT_SUBJECT is defined in each html page
-  const subject = typeof CURRENT_SUBJECT !== 'undefined'
-    ? CURRENT_SUBJECT
-    : 'oslab'
+  const subject = window.CURRENT_SUBJECT || 'oslab'
 
   // Fetch videos for this subject only
   const { data: videos, error } = await db
