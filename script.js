@@ -2,17 +2,36 @@
 // STEP 1 — Connect to Supabase
 // ============================================
 
-// ⚠️ IMPORTANT: Replace these two values with YOUR Supabase details!
 const SUPABASE_URL = 'https://bnbdbrtwlqguidqwxynt.supabase.co'
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJuYmRicnR3bHFndWlkcXd4eW50Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MDUzMjUsImV4cCI6MjA5MjE4MTMyNX0.LNsKcPdNrFhD9Fl6St7uuLB41uHNbgiBvOnmeBxGqJE'
 
-// This creates your Supabase client (your connection to the database)
 const { createClient } = supabase
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 
 // ============================================
-// STEP 2 — Load Videos filtered by subject
+// STEP 2 — Figure out subject from URL
+// ============================================
+
+function getSubjectFromURL() {
+  // Get the current page filename
+  // e.g. "subject.html" or "amiv.html"
+  const page = window.location.pathname
+    .split('/')
+    .pop()
+    .toLowerCase()
+
+  // Map filename to subject name
+  if (page === 'subject.html') return 'oslab'
+  if (page === 'amiv.html')    return 'amiv'
+
+  // Default fallback
+  return 'oslab'
+}
+
+
+// ============================================
+// STEP 3 — Load Videos
 // ============================================
 
 const videosGrid = document.getElementById('videos-grid')
@@ -23,8 +42,8 @@ if (videosGrid) {
 
 async function loadVideos() {
 
-  // Check which subject page we are on
-  const subject = window.CURRENT_SUBJECT || 'oslab'
+  // Get subject directly from URL — 100% reliable!
+  const subject = getSubjectFromURL()
 
   // Fetch videos for this subject only
   const { data: videos, error } = await db
@@ -91,7 +110,7 @@ async function loadVideos() {
 
 
 // ============================================
-// STEP 3 — Submit Feedback
+// STEP 4 — Submit Feedback
 // ============================================
 
 async function submitFeedback(videoId) {
@@ -133,7 +152,7 @@ async function submitFeedback(videoId) {
 
 
 // ============================================
-// STEP 4 — Submit Doubt
+// STEP 5 — Submit Doubt
 // ============================================
 
 async function submitDoubt() {
