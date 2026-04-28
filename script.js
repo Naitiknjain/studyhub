@@ -12,10 +12,9 @@ const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 
 // ============================================
-// STEP 2 — Load Videos (only runs on subject.html)
+// STEP 2 — Load Videos filtered by subject
 // ============================================
 
-// Check if we're on the subject page before loading videos
 const videosGrid = document.getElementById('videos-grid')
 
 if (videosGrid) {
@@ -24,12 +23,18 @@ if (videosGrid) {
 
 async function loadVideos() {
 
-  // Fetch all videos from Supabase
+  // Check which subject page we are on
+  // CURRENT_SUBJECT is defined in each html page
+  const subject = typeof CURRENT_SUBJECT !== 'undefined'
+    ? CURRENT_SUBJECT
+    : 'oslab'
+
+  // Fetch videos for this subject only
   const { data: videos, error } = await db
     .from('videos')
     .select('*')
+    .eq('subject', subject)
 
-  // If something went wrong, show error
   if (error) {
     videosGrid.innerHTML = `
       <p style="color: red; text-align: center;">
@@ -38,7 +43,6 @@ async function loadVideos() {
     return
   }
 
-  // If no videos found
   if (videos.length === 0) {
     videosGrid.innerHTML = `
       <p style="color: #888; text-align: center;">
@@ -47,16 +51,13 @@ async function loadVideos() {
     return
   }
 
-  // Clear the "Loading videos..." message
   videosGrid.innerHTML = ''
 
-  // Loop through each video and create a card for it
   videos.forEach(video => {
     const card = document.createElement('div')
     card.className = 'video-card'
 
     card.innerHTML = `
-      <!-- Video Thumbnail (shows before user clicks) -->
       <div class="video-thumbnail" onclick="playVideo(this, '${video.video_url}')">
         <img
           src="${video.thumbnail_url}"
@@ -65,13 +66,11 @@ async function loadVideos() {
         <div class="play-button">▶</div>
       </div>
 
-      <!-- Video Title and Description -->
       <div class="video-info">
         <h3>${video.title}</h3>
         <p>${video.description}</p>
       </div>
 
-      <!-- Feedback Form -->
       <div class="feedback-form">
         <p>💬 Leave Feedback</p>
         <input
@@ -89,7 +88,6 @@ async function loadVideos() {
       </div>
     `
 
-    // Add this card to the grid
     videosGrid.appendChild(card)
   })
 }
@@ -101,25 +99,19 @@ async function loadVideos() {
 
 async function submitFeedback(videoId) {
 
-  // Get the feedback text the user typed
   const input = document.getElementById(`feedback-${videoId}`)
   const message = input.value.trim()
-
-  // Get the message display area
   const msgEl = document.getElementById(`feedback-msg-${videoId}`)
 
-  // Check if user typed something
   if (!message) {
     msgEl.style.color = '#f44336'
     msgEl.textContent = 'Please write something before submitting!'
     return
   }
 
-  // Show a saving message
   msgEl.style.color = '#aaa'
   msgEl.textContent = 'Saving...'
 
-  // Save feedback to Supabase
   const { error } = await db
     .from('feedback')
     .insert([{
@@ -127,19 +119,16 @@ async function submitFeedback(videoId) {
       message: message
     }])
 
-  // If error, show it
   if (error) {
     msgEl.style.color = '#f44336'
     msgEl.textContent = 'Something went wrong. Please try again.'
     return
   }
 
-  // Success! Clear input and show success message
   input.value = ''
   msgEl.style.color = '#4caf50'
   msgEl.textContent = '✅ Feedback submitted! Thank you!'
 
-  // Clear the success message after 4 seconds
   setTimeout(() => {
     msgEl.textContent = ''
   }, 4000)
@@ -152,26 +141,20 @@ async function submitFeedback(videoId) {
 
 async function submitDoubt() {
 
-  // Get values from the form
   const name = document.getElementById('doubt-name').value.trim()
   const email = document.getElementById('doubt-email').value.trim()
   const message = document.getElementById('doubt-message').value.trim()
-
-  // Get the message display area
   const msgEl = document.getElementById('doubt-msg')
 
-  // Check all fields are filled
   if (!name || !email || !message) {
     msgEl.style.color = '#f44336'
     msgEl.textContent = 'Please fill in all fields!'
     return
   }
 
-  // Show saving message
   msgEl.style.color = '#aaa'
   msgEl.textContent = 'Submitting...'
 
-  // Save doubt to Supabase
   const { error } = await db
     .from('doubts')
     .insert([{
@@ -180,14 +163,12 @@ async function submitDoubt() {
       message: message
     }])
 
-  // If error
   if (error) {
     msgEl.style.color = '#f44336'
     msgEl.textContent = 'Something went wrong. Please try again.'
     return
   }
 
-  // Success! Clear form
   document.getElementById('doubt-name').value = ''
   document.getElementById('doubt-email').value = ''
   document.getElementById('doubt-message').value = ''
@@ -195,29 +176,22 @@ async function submitDoubt() {
   msgEl.style.color = '#4caf50'
   msgEl.textContent = '✅ Doubt submitted! We will get back to you soon.'
 
-  // Clear after 5 seconds
   setTimeout(() => {
     msgEl.textContent = ''
   }, 5000)
 }
+
+
 // ============================================
-// Helper — Extract YouTube Video ID from URL
+// Helper — Play video on click
 // ============================================
 
 function getYoutubeId(url) {
-  // Handles URLs like:
-  // https://www.youtube.com/embed/VIDEO_ID
   const parts = url.split('/')
   return parts[parts.length - 1]
 }
 
-
-// ============================================
-// Helper — Replace thumbnail with real player
-// ============================================
-
 function playVideo(thumbnailDiv, videoUrl) {
-  // Create the iframe
   const iframe = document.createElement('iframe')
   iframe.src = videoUrl + '?autoplay=1'
   iframe.title = 'Video Player'
@@ -228,6 +202,5 @@ function playVideo(thumbnailDiv, videoUrl) {
   iframe.style.border = 'none'
   iframe.style.display = 'block'
 
-  // Swap the thumbnail with the iframe
   thumbnailDiv.replaceWith(iframe)
 }
