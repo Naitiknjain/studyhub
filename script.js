@@ -209,7 +209,11 @@ function getYoutubeId(url) {
 
 function playVideo(thumbnailDiv, videoUrl) {
   const iframe = document.createElement('iframe')
-  iframe.src = videoUrl + '?autoplay=1'
+  // YouTube gets autoplay, all other links stay as-is
+  const src = videoUrl.includes('youtube.com')
+    ? videoUrl + '?autoplay=1'
+    : videoUrl
+  iframe.src = src
   iframe.title = 'Video Player'
   iframe.allowFullscreen = true
   iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
@@ -217,6 +221,5 @@ function playVideo(thumbnailDiv, videoUrl) {
   iframe.style.height = '200px'
   iframe.style.border = 'none'
   iframe.style.display = 'block'
-
   thumbnailDiv.replaceWith(iframe)
 }
